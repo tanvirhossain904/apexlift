@@ -1,5 +1,5 @@
 import api from './api';
-import { Workout, ExerciseSet } from '../types';
+import type { Workout, ExerciseSet } from '../types';
 
 export const createWorkout = (data: { name: string; date?: string; programId?: string }) =>
   api.post<Workout>('/workouts', data);

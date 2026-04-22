@@ -1,10 +1,11 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Dumbbell, TrendingUp, Calendar, Plus } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 import { getWorkouts } from '../services/workoutService';
-import { Workout } from '../types';
+import type { Workout } from '../types';
 
 const totalVolume = (w: Workout) =>
   w.exercises.reduce((sum, ex) => sum + ex.sets.reduce((s, set) => s + set.weight * set.reps, 0), 0);

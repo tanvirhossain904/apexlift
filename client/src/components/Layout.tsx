@@ -1,4 +1,5 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Dumbbell, LayoutDashboard, BookOpen, BarChart2, LogOut, Menu, X, ClipboardList } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';

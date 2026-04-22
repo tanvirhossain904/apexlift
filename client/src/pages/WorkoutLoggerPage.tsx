@@ -1,10 +1,11 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Plus, Trash2, ChevronDown, ChevronUp, CheckCircle } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 import * as ws from '../services/workoutService';
-import { Workout, ExerciseSet } from '../types';
+import type { Workout, ExerciseSet } from '../types';
 
 const inputCls =
   'bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';

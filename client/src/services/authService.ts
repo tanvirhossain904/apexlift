@@ -1,5 +1,5 @@
 import api from './api';
-import { User } from '../types';
+import type { User } from '../types';
 
 export const register = (name: string, email: string, password: string, preferredUnit: 'kg' | 'lbs') =>
   api.post<{ token: string; user: User }>('/auth/register', { name, email, password, preferredUnit });

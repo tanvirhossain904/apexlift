@@ -1,5 +1,5 @@
 import api from './api';
-import { WeeklyVolumePoint, ProgressionResult } from '../types';
+import type { WeeklyVolumePoint, ProgressionResult } from '../types';
 
 export const getWeeklyVolume = (params?: { from?: string; to?: string }) =>
   api.get<WeeklyVolumePoint[]>('/analytics/volume/weekly', { params });

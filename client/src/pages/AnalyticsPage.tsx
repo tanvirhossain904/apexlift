@@ -1,4 +1,5 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
@@ -6,7 +7,7 @@ import { Search, TrendingUp, TrendingDown, Minus, Sparkles } from 'lucide-react'
 import Layout from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 import { getWeeklyVolume, getProgression } from '../services/analyticsService';
-import { WeeklyVolumePoint, ProgressionResult } from '../types';
+import type { WeeklyVolumePoint, ProgressionResult } from '../types';
 
 const inputCls =
   'bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';
@@ -127,7 +128,7 @@ export default function AnalyticsPage() {
                   fontSize: 12,
                 }}
                 labelStyle={{ color: '#f4f4f5', marginBottom: 4 }}
-                formatter={(v: number) => [`${v.toLocaleString()} ${unit}`, 'Volume']}
+                formatter={(v) => [`${Number(v).toLocaleString()} ${unit}`, 'Volume']}
               />
               <Area
                 type="monotone"
