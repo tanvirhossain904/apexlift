@@ -10,13 +10,13 @@ import { getWeeklyVolume, getProgression } from '../services/analyticsService';
 import type { WeeklyVolumePoint, ProgressionResult } from '../types';
 
 const inputCls =
-  'bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';
+  'bg-slate-700/60 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent';
 
 const statusConfig = {
-  progressed: { icon: TrendingUp, color: 'text-green-400', bg: 'bg-green-400/10 border-green-400/20', label: 'Progressed' },
-  regressed:  { icon: TrendingDown, color: 'text-red-400',   bg: 'bg-red-400/10 border-red-400/20',   label: 'Regressed'  },
-  maintained: { icon: Minus,        color: 'text-yellow-400', bg: 'bg-yellow-400/10 border-yellow-400/20', label: 'Maintained' },
-  new:        { icon: Sparkles,     color: 'text-blue-400',  bg: 'bg-blue-400/10 border-blue-400/20',  label: 'New exercise' },
+  progressed: { icon: TrendingUp,   color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20', label: 'Progressed' },
+  regressed:  { icon: TrendingDown, color: 'text-rose-400',    bg: 'bg-rose-500/10 border-rose-500/20',       label: 'Regressed'  },
+  maintained: { icon: Minus,        color: 'text-amber-400',   bg: 'bg-amber-500/10 border-amber-500/20',     label: 'Maintained' },
+  new:        { icon: Sparkles,     color: 'text-sky-400',     bg: 'bg-sky-500/10 border-sky-500/20',         label: 'New exercise' },
 };
 
 function ProgressionCard({ result }: { result: ProgressionResult }) {
@@ -28,22 +28,22 @@ function ProgressionCard({ result }: { result: ProgressionResult }) {
         <Icon size={18} />
         {cfg.label}
       </div>
-      <p className="text-lg font-bold">{result.exerciseName}</p>
+      <p className="text-lg font-bold text-slate-100">{result.exerciseName}</p>
       <div className="mt-3 grid grid-cols-2 gap-4 text-sm">
         <div>
-          <p className="text-zinc-400 text-xs mb-0.5">Current volume</p>
-          <p className="font-semibold">{result.currentVolume.toLocaleString()}</p>
+          <p className="text-slate-400 text-xs mb-0.5">Current volume</p>
+          <p className="font-semibold text-slate-100 tabular-nums">{result.currentVolume.toLocaleString()}</p>
         </div>
         {result.previousVolume !== null && (
           <div>
-            <p className="text-zinc-400 text-xs mb-0.5">Previous volume</p>
-            <p className="font-semibold">{result.previousVolume.toLocaleString()}</p>
+            <p className="text-slate-400 text-xs mb-0.5">Previous volume</p>
+            <p className="font-semibold text-slate-100 tabular-nums">{result.previousVolume.toLocaleString()}</p>
           </div>
         )}
         {result.delta !== null && (
           <div>
-            <p className="text-zinc-400 text-xs mb-0.5">Delta</p>
-            <p className={`font-semibold ${result.delta > 0 ? 'text-green-400' : result.delta < 0 ? 'text-red-400' : 'text-zinc-400'}`}>
+            <p className="text-slate-400 text-xs mb-0.5">Delta</p>
+            <p className={`font-semibold tabular-nums ${result.delta > 0 ? 'text-emerald-400' : result.delta < 0 ? 'text-rose-400' : 'text-slate-400'}`}>
               {result.delta > 0 ? '+' : ''}{result.delta.toLocaleString()}
             </p>
           </div>
@@ -95,49 +95,49 @@ export default function AnalyticsPage() {
 
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-6">Analytics</h1>
+      <h1 className="text-2xl font-bold mb-6 text-slate-100">Analytics</h1>
 
       {/* Weekly Volume Chart */}
-      <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-5 mb-6">
-        <h2 className="text-base font-semibold mb-1">Weekly volume</h2>
-        <p className="text-xs text-zinc-500 mb-4">Total {unit} lifted per week across all exercises</p>
+      <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5 mb-6">
+        <h2 className="text-base font-semibold mb-1 text-slate-100">Weekly volume</h2>
+        <p className="text-xs text-slate-500 mb-4">Total {unit} lifted per week across all exercises</p>
 
         {volumeLoading ? (
           <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : chartData.length === 0 ? (
-          <p className="text-zinc-500 text-sm text-center py-10">No data yet. Log some workouts to see your volume trend.</p>
+          <p className="text-slate-500 text-sm text-center py-10">No data yet. Log some workouts to see your volume trend.</p>
         ) : (
           <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={chartData} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="volumeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#3f3f46" vertical={false} />
-              <XAxis dataKey="week" stroke="#71717a" tick={{ fontSize: 11 }} tickLine={false} />
-              <YAxis stroke="#71717a" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+              <XAxis dataKey="week" stroke="#64748b" tick={{ fontSize: 11 }} tickLine={false} />
+              <YAxis stroke="#64748b" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#27272a',
-                  border: '1px solid #3f3f46',
+                  backgroundColor: '#1e293b',
+                  border: '1px solid #334155',
                   borderRadius: 8,
                   fontSize: 12,
                 }}
-                labelStyle={{ color: '#f4f4f5', marginBottom: 4 }}
+                labelStyle={{ color: '#f1f5f9', marginBottom: 4 }}
                 formatter={(v) => [`${Number(v).toLocaleString()} ${unit}`, 'Volume']}
               />
               <Area
                 type="monotone"
                 dataKey="volume"
-                stroke="#f59e0b"
+                stroke="#10b981"
                 strokeWidth={2}
                 fill="url(#volumeGradient)"
                 dot={false}
-                activeDot={{ r: 4, fill: '#f59e0b' }}
+                activeDot={{ r: 4, fill: '#10b981' }}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -145,9 +145,9 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Progressive Overload Lookup */}
-      <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-5">
-        <h2 className="text-base font-semibold mb-1">Progressive overload</h2>
-        <p className="text-xs text-zinc-500 mb-4">Compare your last two sessions for any exercise</p>
+      <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-5">
+        <h2 className="text-base font-semibold mb-1 text-slate-100">Progressive overload</h2>
+        <p className="text-xs text-slate-500 mb-4">Compare your last two sessions for any exercise</p>
 
         <form onSubmit={handleProgression} className="flex gap-2 mb-4">
           <input
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
           <button
             type="submit"
             disabled={progLoading || !query.trim()}
-            className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-zinc-900 font-semibold px-4 py-2.5 rounded-lg transition-colors"
+            className="flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-900 font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-sm shadow-emerald-500/20"
           >
             <Search size={15} />
             {progLoading ? 'Checking…' : 'Check'}
@@ -168,7 +168,7 @@ export default function AnalyticsPage() {
         </form>
 
         {progError && (
-          <p className="text-red-400 text-sm bg-red-400/10 border border-red-400/20 px-3 py-2 rounded-lg">
+          <p className="text-rose-400 text-sm bg-rose-400/10 border border-rose-400/20 px-3 py-2 rounded-lg">
             {progError}
           </p>
         )}

@@ -37,6 +37,12 @@ export interface WeeklyVolumePoint {
   workoutCount: number;
 }
 
+export interface MuscleDistributionPoint {
+  muscleGroup: string;
+  totalVolume: number;
+  totalSets: number;
+}
+
 export type ProgressionStatus = 'progressed' | 'maintained' | 'regressed' | 'new';
 
 export interface ProgressionResult {

@@ -8,7 +8,7 @@ import * as ws from '../services/workoutService';
 import type { Workout, ExerciseSet } from '../types';
 
 const inputCls =
-  'bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent';
+  'bg-slate-700/60 border border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent';
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -42,13 +42,13 @@ function NewWorkoutForm() {
   return (
     <Layout>
       <div className="max-w-md mx-auto mt-8">
-        <h1 className="text-2xl font-bold mb-1">Start a workout</h1>
-        <p className="text-zinc-400 text-sm mb-6">Give it a name and you're ready to log.</p>
+        <h1 className="text-2xl font-bold mb-1 text-slate-100">Start a workout</h1>
+        <p className="text-slate-400 text-sm mb-6">Give it a name and you're ready to log.</p>
 
-        <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-6">
+        <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-zinc-400 mb-1.5">Workout name</label>
+              <label className="block text-sm text-slate-400 mb-1.5">Workout name</label>
               <input
                 type="text"
                 value={name}
@@ -60,7 +60,7 @@ function NewWorkoutForm() {
               />
             </div>
             <div>
-              <label className="block text-sm text-zinc-400 mb-1.5">Date</label>
+              <label className="block text-sm text-slate-400 mb-1.5">Date</label>
               <input
                 type="date"
                 value={date}
@@ -71,7 +71,7 @@ function NewWorkoutForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-zinc-900 font-semibold py-2.5 rounded-lg transition-colors"
+              className="w-full bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-900 font-semibold py-2.5 rounded-lg transition-colors shadow-sm shadow-emerald-500/20"
             >
               {loading ? 'Creating…' : 'Start workout'}
             </button>
@@ -166,7 +166,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
     return (
       <Layout>
         <div className="flex justify-center py-16">
-          <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
         </div>
       </Layout>
     );
@@ -177,8 +177,8 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold">{workout.name}</h1>
-          <p className="text-zinc-400 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-slate-100">{workout.name}</h1>
+          <p className="text-slate-400 text-sm mt-1">
             {new Date(workout.date).toLocaleDateString(undefined, {
               weekday: 'long', month: 'long', day: 'numeric',
             })}
@@ -186,7 +186,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
         </div>
         <button
           onClick={() => navigate('/dashboard')}
-          className="flex items-center gap-1.5 text-sm bg-amber-500 hover:bg-amber-400 text-zinc-900 font-semibold px-4 py-2 rounded-lg transition-colors"
+          className="flex items-center gap-1.5 text-sm bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm shadow-emerald-500/20"
         >
           <CheckCircle size={15} />
           Finish
@@ -196,7 +196,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
       {/* Exercise list */}
       <div className="space-y-3 mb-6">
         {workout.exercises.length === 0 && (
-          <p className="text-zinc-500 text-sm py-4 text-center">No exercises yet. Add one below.</p>
+          <p className="text-slate-500 text-sm py-4 text-center">No exercises yet. Add one below.</p>
         )}
 
         {workout.exercises.map((ex) => {
@@ -206,7 +206,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
           const exVolume = ex.sets.reduce((s, set) => s + set.weight * set.reps, 0);
 
           return (
-            <div key={ex._id} className="bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+            <div key={ex._id} className="bg-slate-800/60 border border-slate-700/60 rounded-xl overflow-hidden">
               {/* Exercise header */}
               <div className="flex items-center justify-between px-4 py-3">
                 <button
@@ -214,30 +214,30 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
                   className="flex items-center gap-2 flex-1 text-left"
                 >
                   <div>
-                    <p className="font-medium text-sm">{ex.name}</p>
-                    <p className="text-xs text-zinc-500">
+                    <p className="font-medium text-sm text-slate-100">{ex.name}</p>
+                    <p className="text-xs text-slate-500">
                       {ex.muscleGroup} · {ex.sets.length} set{ex.sets.length !== 1 ? 's' : ''} · {exVolume} {unit}
                     </p>
                   </div>
-                  <span className="ml-auto mr-3 text-zinc-500">
+                  <span className="ml-auto mr-3 text-slate-500">
                     {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </span>
                 </button>
                 <button
                   onClick={() => handleRemoveExercise(ex._id)}
-                  className="text-zinc-600 hover:text-red-400 transition-colors p-1"
+                  className="text-slate-600 hover:text-rose-400 transition-colors p-1"
                 >
                   <Trash2 size={15} />
                 </button>
               </div>
 
               {isOpen && (
-                <div className="border-t border-zinc-700 px-4 py-3 space-y-3">
+                <div className="border-t border-slate-700/60 px-4 py-3 space-y-3">
                   {/* Sets table */}
                   {ex.sets.length > 0 && (
                     <table className="w-full text-sm mb-1">
                       <thead>
-                        <tr className="text-xs text-zinc-500">
+                        <tr className="text-xs text-slate-500">
                           <th className="text-left pb-1.5 font-normal">Set</th>
                           <th className="text-left pb-1.5 font-normal">{unit}</th>
                           <th className="text-left pb-1.5 font-normal">Reps</th>
@@ -247,15 +247,15 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
                       </thead>
                       <tbody>
                         {ex.sets.map((set, i) => (
-                          <tr key={i} className="border-t border-zinc-700/50">
-                            <td className="py-1.5 text-zinc-400">{i + 1}</td>
-                            <td className="py-1.5 font-medium">{set.weight}</td>
-                            <td className="py-1.5">{set.reps}</td>
-                            <td className="py-1.5 text-zinc-500">{set.rpe ?? '—'}</td>
+                          <tr key={i} className="border-t border-slate-700/40">
+                            <td className="py-1.5 text-slate-400">{i + 1}</td>
+                            <td className="py-1.5 font-medium text-slate-100">{set.weight}</td>
+                            <td className="py-1.5 text-slate-200">{set.reps}</td>
+                            <td className="py-1.5 text-slate-500">{set.rpe ?? '—'}</td>
                             <td className="py-1.5 text-right">
                               <button
                                 onClick={() => handleRemoveSet(ex._id, i)}
-                                className="text-zinc-600 hover:text-red-400 transition-colors"
+                                className="text-slate-600 hover:text-rose-400 transition-colors"
                               >
                                 <Trash2 size={13} />
                               </button>
@@ -298,7 +298,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
                     <button
                       onClick={() => handleAddSet(ex._id)}
                       disabled={loading || !draft.weight || !draft.reps}
-                      className="flex items-center gap-1 text-sm bg-zinc-700 hover:bg-zinc-600 disabled:opacity-40 px-3 py-2 rounded-lg transition-colors"
+                      className="flex items-center gap-1 text-sm bg-slate-700 hover:bg-slate-600 disabled:opacity-40 px-3 py-2 rounded-lg transition-colors text-slate-100"
                     >
                       <Plus size={14} />
                       {loading ? 'Saving…' : 'Add set'}
@@ -312,8 +312,8 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
       </div>
 
       {/* Add exercise form */}
-      <div className="bg-zinc-800 border border-zinc-700 rounded-xl p-4">
-        <p className="text-sm font-medium text-zinc-300 mb-3">Add exercise</p>
+      <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4">
+        <p className="text-sm font-medium text-slate-300 mb-3">Add exercise</p>
         <form onSubmit={handleAddExercise} className="flex items-center gap-2 flex-wrap">
           <input
             type="text"
@@ -334,7 +334,7 @@ function ActiveLogger({ workoutId }: { workoutId: string }) {
           <button
             type="submit"
             disabled={exLoading}
-            className="flex items-center gap-1.5 text-sm bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-zinc-900 font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-1.5 text-sm bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-900 font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm shadow-emerald-500/20"
           >
             <Plus size={15} />
             {exLoading ? 'Adding…' : 'Add'}

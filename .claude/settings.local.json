@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(node -e \"const l = require\\('lucide-react'\\); console.log\\(Object.keys\\(l\\).filter\\(k => /twitter|github|instagram|youtube|facebook|linkedin|mail|brand|social|x$|message|chat|globe|link|share/i.test\\(k\\)\\).sort\\(\\).join\\('\\\\n'\\)\\)\")"
     ]
   }
 }

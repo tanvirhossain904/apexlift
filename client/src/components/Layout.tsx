@@ -23,9 +23,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-zinc-100">
-      <nav className="bg-zinc-800 border-b border-zinc-700 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
-        <Link to="/dashboard" className="flex items-center gap-2 font-bold text-lg text-amber-400">
+    <div className="min-h-screen bg-slate-900 text-slate-100">
+      <nav className="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
+        <Link to="/dashboard" className="flex items-center gap-2 font-bold text-lg text-emerald-400">
           <Dumbbell size={22} />
           ApexLift
         </Link>
@@ -37,8 +37,8 @@ export default function Layout({ children }: { children: ReactNode }) {
               to={to}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 pathname.startsWith(to)
-                  ? 'bg-amber-500/20 text-amber-400'
-                  : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700'
+                  ? 'bg-emerald-500/15 text-emerald-400'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-700/50'
               }`}
             >
               <Icon size={15} />
@@ -48,30 +48,30 @@ export default function Layout({ children }: { children: ReactNode }) {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <span className="text-sm text-zinc-400">{user?.name}</span>
+          <span className="text-sm text-slate-400">{user?.name}</span>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-100 transition-colors"
           >
             <LogOut size={15} />
             Logout
           </button>
         </div>
 
-        <button className="md:hidden text-zinc-400 hover:text-zinc-100" onClick={() => setOpen((v) => !v)}>
+        <button className="md:hidden text-slate-400 hover:text-slate-100" onClick={() => setOpen((v) => !v)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
       {open && (
-        <div className="md:hidden bg-zinc-800 border-b border-zinc-700 px-4 py-3 flex flex-col gap-1">
+        <div className="md:hidden bg-slate-800 border-b border-slate-700/60 px-4 py-3 flex flex-col gap-1">
           {navItems.map(({ to, icon: Icon, label }) => (
             <Link
               key={to}
               to={to}
               onClick={() => setOpen(false)}
               className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium ${
-                pathname.startsWith(to) ? 'bg-amber-500/20 text-amber-400' : 'text-zinc-300'
+                pathname.startsWith(to) ? 'bg-emerald-500/15 text-emerald-400' : 'text-slate-300'
               }`}
             >
               <Icon size={16} />
@@ -80,7 +80,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           ))}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-zinc-400"
+            className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-slate-400"
           >
             <LogOut size={16} />
             Logout
@@ -88,7 +88,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <main className="max-w-4xl mx-auto px-4 py-6">{children}</main>
+      <main className="max-w-5xl mx-auto px-4 py-6">{children}</main>
     </div>
   );
 }
