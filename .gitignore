@@ -3,3 +3,8 @@ dist/
 .env
 *.local
 .DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+.claude/settings.local.json

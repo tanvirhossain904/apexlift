@@ -691,7 +691,7 @@ export default function LandingPage() {
             {/* Link columns */}
             <nav
               aria-label="Footer"
-              className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-4"
+              className="grid grid-cols-2 gap-8 md:col-span-8 md:grid-cols-3"
             >
               <div>
                 <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
@@ -700,6 +700,17 @@ export default function LandingPage() {
                 <ul className="space-y-2.5 text-sm">
                   <li><a href="#features" className="text-slate-400 transition-colors hover:text-emerald-400">Features</a></li>
                   <li><a href="#how-it-works" className="text-slate-400 transition-colors hover:text-emerald-400">How it works</a></li>
+                  <li><a href="#faq" className="text-slate-400 transition-colors hover:text-emerald-400">FAQ</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
+                  App
+                </h3>
+                <ul className="space-y-2.5 text-sm">
+                  <li><Link to="/register" className="text-slate-400 transition-colors hover:text-emerald-400">Create account</Link></li>
+                  <li><Link to="/login" className="text-slate-400 transition-colors hover:text-emerald-400">Sign in</Link></li>
                   <li><Link to="/log" className="text-slate-400 transition-colors hover:text-emerald-400">Workout Logger</Link></li>
                   <li><Link to="/analytics" className="text-slate-400 transition-colors hover:text-emerald-400">Analytics</Link></li>
                   <li><Link to="/programs" className="text-slate-400 transition-colors hover:text-emerald-400">Programs</Link></li>
@@ -708,46 +719,18 @@ export default function LandingPage() {
 
               <div>
                 <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
-                  Resources
+                  Contact
                 </h3>
                 <ul className="space-y-2.5 text-sm">
-                  <li><a href="#faq" className="text-slate-400 transition-colors hover:text-emerald-400">FAQ</a></li>
-                  <li><Link to="/blog" className="text-slate-400 transition-colors hover:text-emerald-400">Blog</Link></li>
-                  <li><Link to="/guides" className="text-slate-400 transition-colors hover:text-emerald-400">Training Guides</Link></li>
-                  <li><Link to="/changelog" className="text-slate-400 transition-colors hover:text-emerald-400">Changelog</Link></li>
-                  <li><Link to="/help" className="text-slate-400 transition-colors hover:text-emerald-400">Help Center</Link></li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
-                  Company
-                </h3>
-                <ul className="space-y-2.5 text-sm">
-                  <li><Link to="/about" className="text-slate-400 transition-colors hover:text-emerald-400">About us</Link></li>
-                  <li><Link to="/contact" className="text-slate-400 transition-colors hover:text-emerald-400">Contact</Link></li>
-                  <li><Link to="/careers" className="text-slate-400 transition-colors hover:text-emerald-400">Careers</Link></li>
                   <li>
                     <a
                       href="mailto:hello@apexlift.app"
                       className="inline-flex items-center gap-1.5 text-slate-400 transition-colors hover:text-emerald-400"
                     >
                       <Mail className="h-3.5 w-3.5" />
-                      Email
+                      hello@apexlift.app
                     </a>
                   </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
-                  Legal
-                </h3>
-                <ul className="space-y-2.5 text-sm">
-                  <li><Link to="/privacy" className="text-slate-400 transition-colors hover:text-emerald-400">Privacy Policy</Link></li>
-                  <li><Link to="/terms" className="text-slate-400 transition-colors hover:text-emerald-400">Terms of Service</Link></li>
-                  <li><Link to="/cookies" className="text-slate-400 transition-colors hover:text-emerald-400">Cookie Policy</Link></li>
-                  <li><Link to="/security" className="text-slate-400 transition-colors hover:text-emerald-400">Security</Link></li>
                 </ul>
               </div>
             </nav>
@@ -758,14 +741,6 @@ export default function LandingPage() {
             <p className="text-xs text-slate-500">
               © {new Date().getFullYear()} ApexLift. Built for serious lifters. All rights reserved.
             </p>
-            <div className="flex items-center gap-5 text-xs text-slate-500">
-              <Link to="/privacy" className="transition-colors hover:text-slate-300">
-                Privacy
-              </Link>
-              <Link to="/terms" className="transition-colors hover:text-slate-300">
-                Terms
-              </Link>
-            </div>
           </div>
         </div>
 

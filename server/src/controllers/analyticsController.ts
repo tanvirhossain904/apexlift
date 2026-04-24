@@ -16,14 +16,21 @@ interface MuscleDistributionPoint {
   totalSets: number;
 }
 
+const parseDateParam = (v: unknown): Date | null => {
+  if (typeof v !== 'string') return null;
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? null : d;
+};
+
 // GET /api/analytics/volume/weekly?from=&to=
 // Returns ISO-week volume totals for the authenticated user as a time series.
 export const getWeeklyVolume = async (req: AuthRequest, res: Response): Promise<void> => {
-  const { from, to } = req.query as Record<string, string>;
+  const from = parseDateParam(req.query.from);
+  const to = parseDateParam(req.query.to);
 
   const dateFilter: Record<string, Date> = {};
-  if (from) dateFilter.$gte = new Date(from);
-  if (to) dateFilter.$lte = new Date(to);
+  if (from) dateFilter.$gte = from;
+  if (to) dateFilter.$lte = to;
 
   const matchStage: Record<string, unknown> = {
     userId: new Types.ObjectId(req.userId!),
@@ -60,11 +67,12 @@ export const getWeeklyVolume = async (req: AuthRequest, res: Response): Promise<
 // GET /api/analytics/muscle-distribution?from=&to=
 // Returns total volume and set counts grouped by muscle group for the authenticated user.
 export const getMuscleDistribution = async (req: AuthRequest, res: Response): Promise<void> => {
-  const { from, to } = req.query as Record<string, string>;
+  const from = parseDateParam(req.query.from);
+  const to = parseDateParam(req.query.to);
 
   const dateFilter: Record<string, Date> = {};
-  if (from) dateFilter.$gte = new Date(from);
-  if (to) dateFilter.$lte = new Date(to);
+  if (from) dateFilter.$gte = from;
+  if (to) dateFilter.$lte = to;
 
   const matchStage: Record<string, unknown> = {
     userId: new Types.ObjectId(req.userId!),
@@ -100,13 +108,24 @@ export const getMuscleDistribution = async (req: AuthRequest, res: Response): Pr
 
 // GET /api/analytics/progression?exerciseName=Squat&programId=
 export const getProgression = async (req: AuthRequest, res: Response): Promise<void> => {
-  const { exerciseName, programId } = req.query as Record<string, string>;
+  const { exerciseName, programId } = req.query;
 
-  if (!exerciseName) {
+  if (typeof exerciseName !== 'string' || !exerciseName.trim()) {
     res.status(400).json({ message: 'exerciseName query param is required' });
     return;
   }
 
-  const result = await getExerciseProgression(req.userId!, exerciseName, programId);
+  if (programId !== undefined) {
+    if (typeof programId !== 'string' || !Types.ObjectId.isValid(programId)) {
+      res.status(400).json({ message: 'Invalid programId' });
+      return;
+    }
+  }
+
+  const result = await getExerciseProgression(
+    req.userId!,
+    exerciseName,
+    typeof programId === 'string' ? programId : undefined
+  );
   res.json(result);
 };

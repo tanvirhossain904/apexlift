@@ -7,6 +7,9 @@ import { AuthRequest } from '../middleware/auth';
 
 const toObjectId = (id: string) => new Types.ObjectId(id);
 
+const isValidId = (id: unknown): id is string =>
+  typeof id === 'string' && Types.ObjectId.isValid(id);
+
 const ownerFilter = (workoutId: string, userId: string) => ({
   _id: toObjectId(workoutId),
   userId: toObjectId(userId),
@@ -18,8 +21,13 @@ const ownerFilter = (workoutId: string, userId: string) => ({
 export const createWorkout = async (req: AuthRequest, res: Response): Promise<void> => {
   const { name, date, programId, notes } = req.body;
 
-  if (!name) {
+  if (typeof name !== 'string' || !name.trim()) {
     res.status(400).json({ message: 'Workout name is required' });
+    return;
+  }
+
+  if (programId !== undefined && !isValidId(programId)) {
+    res.status(400).json({ message: 'Invalid programId' });
     return;
   }
 
@@ -34,17 +42,31 @@ export const createWorkout = async (req: AuthRequest, res: Response): Promise<vo
   res.status(201).json(workout);
 };
 
+const parseDateQuery = (v: unknown): Date | null => {
+  if (typeof v !== 'string') return null;
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? null : d;
+};
+
 // GET /api/workouts  — supports ?programId=&from=&to= query params
 export const getWorkouts = async (req: AuthRequest, res: Response): Promise<void> => {
-  const { programId, from, to } = req.query as Record<string, string>;
+  const { programId } = req.query;
+  const from = parseDateQuery(req.query.from);
+  const to = parseDateQuery(req.query.to);
 
   const filter: Record<string, unknown> = { userId: toObjectId(req.userId!) };
 
-  if (programId) filter.programId = toObjectId(programId);
+  if (programId !== undefined) {
+    if (!isValidId(programId)) {
+      res.status(400).json({ message: 'Invalid programId' });
+      return;
+    }
+    filter.programId = toObjectId(programId);
+  }
   if (from || to) {
     filter.date = {
-      ...(from && { $gte: new Date(from) }),
-      ...(to && { $lte: new Date(to) }),
+      ...(from && { $gte: from }),
+      ...(to && { $lte: to }),
     };
   }
 
