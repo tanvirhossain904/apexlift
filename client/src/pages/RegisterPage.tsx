@@ -3,6 +3,7 @@ import type { FormEvent, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dumbbell } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { getErrorMessage } from '../services/api';
 
 const inputCls =
   'w-full bg-slate-700/60 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent';
@@ -31,8 +32,8 @@ export default function RegisterPage() {
     try {
       await register(form.name, form.email, form.password, form.unit);
       navigate('/dashboard');
-    } catch {
-      setError('Registration failed. That email may already be in use.');
+    } catch (err) {
+      setError(getErrorMessage(err, 'Registration failed. Please try again.'));
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dumbbell } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { getErrorMessage } from '../services/api';
 
 const inputCls =
   'w-full bg-slate-700/60 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent';
@@ -22,8 +23,8 @@ export default function LoginPage() {
     try {
       await login(email, password);
       navigate('/dashboard');
-    } catch {
-      setError('Invalid email or password.');
+    } catch (err) {
+      setError(getErrorMessage(err, 'Sign in failed. Please try again.'));
     } finally {
       setLoading(false);
     }
